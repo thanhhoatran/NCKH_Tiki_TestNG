@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: co.paralleluniverse:capsule-shield:0.3.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/co/paralleluniverse/capsule-shield/0.3.0-SNAPSHOT/capsule-shield-0.3.0-20151027.095329-1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/co/paralleluniverse/capsule-shield/0.3.0-SNAPSHOT/capsule-shield-0.3.0-20151027.095329-1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/co/paralleluniverse/capsule-shield/0.3.0-SNAPSHOT/capsule-shield-0.3.0-20151027.095329-1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

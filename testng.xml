@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Tiki Test">
+
+    <!--<listeners>-->
+        <!--<listener class-name="org.uncommons.reportng.HTMLReporter"/>-->
+        <!--<listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>-->
+    <!--</listeners>-->
+    <test name="Login Test case">
+
+        <classes>
+
+            <class name="Testcases.TC_Tiki_Check" >
+                <methods>
+                    <include name="TC_Tiki_Check2"/>
+                    <!--<include name="LoginTC2"/>-->
+                </methods>
+            </class>
+
+        </classes>
+
+    </test>
+
+</suite>
+<!--<listeners>-->
+<!--<listener class-name="com.vimalselvam.testng.listener.ExtentTestNgFormatter" />-->
+<!--</listeners>-->
