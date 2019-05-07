@@ -16,8 +16,8 @@ import org.testng.annotations.Test;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 public class TC_Tiki_Check{
     WebDriver driver;
@@ -27,7 +27,7 @@ public class TC_Tiki_Check{
     @BeforeMethod
     public void setup()
     {
-        System.setProperty("webdriver.chrome.driver", ".\\src\\Resources\\Drivers\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", ".\\src\\Resources\\DriverChrome\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-notifications"); //vô hiệu hóa thông báo chrome
         options.addArguments("--disable-popup-blocking");
@@ -58,10 +58,14 @@ public class TC_Tiki_Check{
     //Summary: Verify that the products of cart still displayed when the user log out then login successfully.
     public void TC_Tiki_Check() throws InterruptedException {
         //Step1: Hover on "Đăng nhập" field and click on "Đăng nhập" link.
+        Thread.sleep(2000);
         TikiLoginAction.clickOnDangNhap1(driver);
         TikiLoginAction.clickOnDangNhap2(driver);
+       // Reporter.log("Login");
         //Step2: Enter all valid data in all field of Login form.
+        Thread.sleep(2000);
         TikiLoginAction.enterEmailAndPassword(driver,user.getProperty("userid"),user.getProperty("password"));
+       // Reporter.log("Login account");
         //Step3: Click on "Đăng nhập" button.
         TikiLoginAction.clickOnLoginButton(driver);
         //Step4:Enter a valid data into Search field.
@@ -73,10 +77,11 @@ public class TC_Tiki_Check{
         //Step6: Click on a product.
         Thread.sleep(2000);
         TikiAddToCartAction.clickProduct(driver);
-        ArrayList<String> tags = new ArrayList<String>(driver.getWindowHandles());
-        driver.switchTo().window(tags.get(1));
+//        ArrayList<String> tags = new ArrayList<String>(driver.getWindowHandles());
+//        driver.switchTo().window(tags.get(1));
         //Step7: Click on "CHỌN MUA" button.
         Thread.sleep(2000);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         TikiAddToCartAction.clickAdd(driver);
         //Step8: Click on "Thoát tài khoản" button.
         Thread.sleep(3000);
@@ -106,9 +111,11 @@ public class TC_Tiki_Check{
     @Test
     public void TC_Tiki_Check2() throws InterruptedException {
         //Step1: Hover on "Đăng nhập" field and click on "Đăng nhập" link.
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         TikiLoginAction.clickOnDangNhap1(driver);
         TikiLoginAction.clickOnDangNhap2(driver);
         //Step2: Enter all valid data in all field of Login form.
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         TikiLoginAction.enterEmailAndPassword(driver,user.getProperty("userid"),user.getProperty("password"));
         //Step3: Click on "Đăng nhập" button.
         TikiLoginAction.clickOnLoginButton(driver);
@@ -121,8 +128,8 @@ public class TC_Tiki_Check{
         //Step6: Click on a product.
         Thread.sleep(2000);
         TikiAddToCartAction.clickProduct(driver);
-        ArrayList<String> tags = new ArrayList<String>(driver.getWindowHandles());
-        driver.switchTo().window(tags.get(1));
+//        ArrayList<String> tags = new ArrayList<String>(driver.getWindowHandles());
+//        driver.switchTo().window(tags.get(1));
         //Step7: Click on "CHỌN MUA" button.
         Thread.sleep(2000);
         TikiAddToCartAction.clickAdd(driver);

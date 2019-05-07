@@ -4,6 +4,7 @@ import Actions.TikiAddToCartAction;
 import Actions.TikiLoginAction;
 import Actions.TikiLogoutAction;
 import Actions.TikiSearchAction;
+import Commons.Result2Excels;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.openqa.selenium.By;
@@ -60,54 +61,67 @@ public class TC_Tiki_Check_Log {
     }
     @Test(priority = 0, enabled = false)
     //Summary: Verify that the products of cart still displayed when the user log out then login successfully.
-    public void TC_Tiki_Check() throws InterruptedException {
+    public void TC_Tiki_Check() throws InterruptedException, IOException {
         DOMConfigurator.configure("log4j.xml");
         //Step1: Hover on "Đăng nhập" field and click on "Đăng nhập" link.
         TikiLoginAction.clickOnDangNhap1(driver);
         TikiLoginAction.clickOnDangNhap2(driver);
-        Log.info("Hover on \"Đăng nhập\" field and click on \"Đăng nhập\" link.");
+       // Log.info("Hover on \"Đăng nhập\" field and click on \"Đăng nhập\" link.");
         //Step2: Enter all valid data in all field of Login form.
         TikiLoginAction.enterEmailAndPassword(driver,user.getProperty("userid"),user.getProperty("password"));
-        Log.info("Enter all valid data in all field of Login form.");
+        //Log.info("Enter all valid data in all field of Login form.");
+
+
+
+        //End
+        driver.close();
         //Step3: Click on "Đăng nhập" button.
         TikiLoginAction.clickOnLoginButton(driver);
-        Log.info("Click on \"Đăng nhập\" button.");
+      //  Log.info("Click on \"Đăng nhập\" button.");
 
         //Step4:Enter a valid data into Search field.
         //(Eg: "laptop" )
         Thread.sleep(2000);
         TikiSearchAction.enterSearch(driver,"laptop");
-        Log.info("Enter a valid data into Search field.");
+     //   Log.info("Enter a valid data into Search field.");
         //Step5: Click on "Tìm kiếm" button.
         TikiSearchAction.clickSearch(driver);
-        Log.info("Click on \"Tìm kiếm\" button.");
+     //  Log.info("Click on \"Tìm kiếm\" button.");
+
+        if(driver.getTitle().equals("Có 7110 sản phẩm 'laptop' mua online giá tốt - Tiki.vn"))
+        {
+            Result2Excels.saveResult2ExcelFile("ResultDemo","Result","TC01","Verify that the products of cart still displayed when the user log out then login successfully.","Passed");
+        }else
+            Result2Excels.saveResult2ExcelFile("ResultDemo","Result","TC01","Verify that the products of cart still displayed when the user log out then login successfully.","Failed");
+
+
         //Step6: Click on a product.
         Thread.sleep(2000);
         TikiAddToCartAction.clickProduct(driver);
         ArrayList<String> tags = new ArrayList<String>(driver.getWindowHandles());
         driver.switchTo().window(tags.get(1));
-        Log.info("Click on a product.");
+     //   Log.info("Click on a product.");
         //Step7: Click on "CHỌN MUA" button.
         Thread.sleep(2000);
         TikiAddToCartAction.clickAdd(driver);
-        Log.info("Click on \"CHỌN MUA\" button.");
+     //   Log.info("Click on \"CHỌN MUA\" button.");
         //Step8: Click on "Thoát tài khoản" button.
         Thread.sleep(3000);
         // driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//div[@id='header-user']//b[text()='Chào ' and text()='"+ dynamicName +"']")).click();
         TikiLogoutAction.clickLogout(driver);
-        Log.info("Click on \"Thoát tài khoản\" button.");
+     //   Log.info("Click on \"Thoát tài khoản\" button.");
         //Step9: User login again. Such as: step 1,2,3.
         Thread.sleep(2000);
         TikiLoginAction.clickOnDangNhap1(driver);
         TikiLoginAction.clickOnDangNhap2(driver);
         TikiLoginAction.enterEmailAndPassword(driver,user.getProperty("userid"),user.getProperty("password"));
         TikiLoginAction.clickOnLoginButton(driver);
-        Log.info("User login again. Such as: step 1,2,3.");
+     //   Log.info("User login again. Such as: step 1,2,3.");
         //Step10: Click on "Giỏ hàng" button.
         Thread.sleep(2000);
         TikiLogoutAction.clickCart(driver);
-        Log.info("Click on \"Giỏ hàng\" button.");
+     //   Log.info("Click on \"Giỏ hàng\" button.");
 
         //Expected Result: The products of cart still displayed.
         Thread.sleep(2000);
@@ -118,6 +132,8 @@ public class TC_Tiki_Check_Log {
         //Delete
         //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         TikiAddToCartAction.clickDeleteProduct(driver);
+
+
     }
     @Test
     public void TC_Tiki_Check2() throws InterruptedException {
